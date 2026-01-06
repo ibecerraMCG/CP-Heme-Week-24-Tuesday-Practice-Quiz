@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 24 Tuesday Practice Quiz</title>
+    <style>
+        /* --- CSS Variables & Themes --- */
+        :root {
+            /* Base Transition */
+            --transition-speed: 0.3s;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* 1. Modern Dark (Default) */
+        [data-theme="dark"] {
+            --bg-body: #1e293b;
+            --bg-card: #334155;
+            --bg-header: #0f172a;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --text-accent: #38bdf8;
+            --border-color: #475569;
+            --highlight-bg: #475569;
+            --button-bg: #38bdf8;
+            --button-text: #0f172a;
+            --button-hover: #0ea5e9;
+            --feedback-success-bg: #064e3b;
+            --feedback-success-border: #059669;
+            --feedback-success-text: #a7f3d0;
+            --feedback-error-bg: #7f1d1d;
+            --feedback-error-border: #dc2626;
+            --feedback-error-text: #fecaca;
+        }
+
+        /* 2. Modern Light */
+        [data-theme="light"] {
+            --bg-body: #f3f4f6;
+            --bg-card: #ffffff;
+            --bg-header: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --text-accent: #2563eb;
+            --border-color: #e5e7eb;
+            --highlight-bg: #f3f4f6;
+            --button-bg: #2563eb;
+            --button-text: #ffffff;
+            --button-hover: #1d4ed8;
+            --feedback-success-bg: #ecfdf5;
+            --feedback-success-border: #34d399;
+            --feedback-success-text: #065f46;
+            --feedback-error-bg: #fef2f2;
+            --feedback-error-border: #f87171;
+            --feedback-error-text: #991b1b;
+        }
+
+        /* 3. Midnight (Pure Black) */
+        [data-theme="midnight"] {
+            --bg-body: #000000;
+            --bg-card: #000000;
+            --bg-header: #000000;
+            --text-main: #e0e0e0;
+            --text-muted: #888888;
+            --text-accent: #90caf9;
+            --border-color: #333333;
+            --highlight-bg: #1a1a1a;
+            --button-bg: #90caf9;
+            --button-text: #000000;
+            --button-hover: #42a5f5;
+            --feedback-success-bg: #051b11;
+            --feedback-success-border: #0f5132;
+            --feedback-success-text: #75b798;
+            --feedback-error-bg: #2c0b0e;
+            --feedback-error-border: #842029;
+            --feedback-error-text: #ea868f;
+        }
+
+        /* 4. Legacy Dark (Original) */
+        [data-theme="legacy-dark"] {
+            --bg-body: #2d343e;
+            --bg-card: #3c424f;
+            --bg-header: #3c424f;
+            --text-main: #e8e6e3;
+            --text-muted: #b0c4de;
+            --text-accent: #8ab4f8;
+            --border-color: #555;
+            --highlight-bg: #454c5a;
+            --button-bg: #8ab4f8;
+            --button-text: #202124;
+            --button-hover: #a3c5f9;
+            --feedback-success-bg: #344e41;
+            --feedback-success-border: #52b788;
+            --feedback-success-text: #c7f9cc;
+            --feedback-error-bg: #5e2129;
+            --feedback-error-border: #a4133c;
+            --feedback-error-text: #f8d7da;
+        }
+
+        /* 5. Sepia (Reading Mode) */
+        [data-theme="sepia"] {
+            --bg-body: #f4ecd8;
+            --bg-card: #fdf6e3;
+            --bg-header: #e4d5b7;
+            --text-main: #433422;
+            --text-muted: #7c6f5a;
+            --text-accent: #a05a2c;
+            --border-color: #d3c4a5;
+            --highlight-bg: #ebe1c9;
+            --button-bg: #a05a2c;
+            --button-text: #fdf6e3;
+            --button-hover: #864822;
+            --feedback-success-bg: #e6f4ea;
+            --feedback-success-border: #8ab893;
+            --feedback-success-text: #2e4c35;
+            --feedback-error-bg: #f9e3e3;
+            --feedback-error-border: #d48f8f;
+            --feedback-error-text: #5c2b2b;
+        }
+
+        /* 6. High Contrast */
+        [data-theme="contrast"] {
+            --bg-body: #000000;
+            --bg-card: #000000;
+            --bg-header: #000000;
+            --text-main: #ffffff;
+            --text-muted: #dddddd;
+            --text-accent: #ffff00;
+            --border-color: #ffffff;
+            --highlight-bg: #333333;
+            --button-bg: #ffff00;
+            --button-text: #000000;
+            --button-hover: #e6e600;
+            --feedback-success-bg: #000000;
+            --feedback-success-border: #00ff00;
+            --feedback-success-text: #00ff00;
+            --feedback-error-bg: #000000;
+            --feedback-error-border: #ff0000;
+            --feedback-error-text: #ff0000;
+        }
+
+        /* --- Global Reset & Layout --- */
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-main);
+            margin: 0;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            line-height: 1.6;
+        }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--bg-header);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* Default to Sticky */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Class to remove sticky behavior */
+        header.unpinned {
+            position: relative;
+            box-shadow: none;
+        }
+
+        header h1 {
+            font-size: 1.25rem;
+            margin: 0;
+            color: var(--text-accent);
+        }
+
+        .controls-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .pin-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .pin-btn:hover {
+            background-color: var(--highlight-bg);
+        }
+
+        .pin-btn.pin-active {
+            color: var(--text-accent);
+            border-color: var(--text-accent);
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        select#theme-select {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* --- Main Content --- */
+        .container {
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 0 1rem 4rem 1rem;
+        }
+
+        .section-header {
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--text-accent);
+            color: var(--text-accent);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* --- Question Card --- */
+        .question-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .lo-box {
+            background-color: var(--highlight-bg);
+            border-left: 4px solid var(--text-accent);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Options --- */
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: var(--highlight-bg);
+            border-color: var(--text-muted);
+        }
+
+        .option-label input {
+            margin-top: 0.3rem;
+            margin-right: 1rem;
+            accent-color: var(--text-accent);
+            transform: scale(1.2);
+        }
+
+        /* --- Buttons --- */
+        .btn-check {
+            margin-top: 1.5rem;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            font-size: 1rem;
+        }
+
+        .btn-check:hover {
+            opacity: 0.9;
+        }
+
+        /* --- Feedback Area --- */
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: none; /* Hidden by default */
+            border: 1px solid transparent;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback.correct {
+            background-color: var(--feedback-success-bg);
+            border-color: var(--feedback-success-border);
+            color: var(--feedback-success-text);
+        }
+
+        .feedback.incorrect {
+            background-color: var(--feedback-error-bg);
+            border-color: var(--feedback-error-border);
+            color: var(--feedback-error-text);
+        }
+
+        .feedback-header {
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .rationale {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .source {
+            display: block;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            font-style: italic;
+            border-top: 1px dashed currentColor;
+            padding-top: 0.5rem;
+        }
+
+        /* --- Mobile Tweaks --- */
+        @media (max-width: 600px) {
+            header { padding: 1rem; flex-direction: column; gap: 10px; align-items: flex-start; }
+            .controls-wrapper { width: 100%; justify-content: space-between; }
+            .question-card { padding: 1.5rem; }
+            header h1 { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <h1>Week 24 Tuesday Practice Quiz</h1>
+        <div class="controls-wrapper">
+            <!-- Pin Button -->
+            <button class="pin-btn pin-active" id="pin-btn" onclick="toggleHeader()" title="Pin/Unpin Header">
+                📌
+            </button>
+            
+            <div class="theme-control">
+                <label for="theme-select">Theme:</label>
+                <select id="theme-select" onchange="changeTheme(this.value)">
+                    <option value="dark">Modern Dark</option>
+                    <option value="midnight">Midnight</option>
+                    <option value="light">Modern Light</option>
+                    <option value="legacy-dark">Legacy Dark</option>
+                    <option value="sepia">Sepia</option>
+                    <option value="contrast">High Contrast</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" id="quiz-root">
+        <!-- Content injected via JS -->
+    </div>
+
+    <script>
+        // --- Data ---
+        const quizData = [
+            // --- Hemolytic Anemia ---
+            {
+                section: "Hemolytic Anemia",
+                maskedLO: "LO1: Define hemolytic anemia and recognize its pathognomonic features.",
+                fullLO: "LO1: Define hemolytic anemia and recognize its pathognomonic features. (Hemolytic Anemia)",
+                question: "A 28-year-old male presents with fatigue and yellowing of the eyes. Laboratory evaluation reveals a hemoglobin of 8.5 g/dL and a reticulocyte count of 4.5%. A chemistry panel shows elevated lactate dehydrogenase (LDH) and elevated indirect bilirubin. Which of the following additional laboratory findings would be most consistent with a diagnosis of hemolytic anemia?",
+                options: {
+                    A: "Elevated serum haptoglobin",
+                    B: "Decreased serum haptoglobin",
+                    C: "Elevated direct bilirubin",
+                    D: "Decreased mean corpuscular volume (MCV)",
+                    E: "Positive urine culture"
+                },
+                correctAnswer: "B",
+                rationale: "Haptoglobin binds to free hemoglobin released during hemolysis. The complex is then cleared by the reticuloendothelial system, leading to low serum haptoglobin levels.",
+                source: "Hemolytic Anemias, Slide 6: \"Diagnostic characteristics: o Presence of anemia. o Elevated LDH o Elevated indirect bilirubin (unconjugated). o Decreased haptoglobin.\""
+            },
+            {
+                section: "Hemolytic Anemia",
+                maskedLO: "LO1: Define hemolytic anemia and recognize its pathognomonic features.",
+                fullLO: "LO1: Define hemolytic anemia and recognize its pathognomonic features. (Hemolytic Anemia)",
+                question: "A 34-year-old female presents to the clinic with pallor and dark urine. She reports feeling exhausted. Laboratory results indicate anemia. The physician suspects intravascular hemolysis. Which of the following mechanisms best explains the presence of hemoglobin in the urine (hemoglobinuria) in this patient?",
+                options: {
+                    A: "The liver's capacity to conjugate bilirubin is exceeded.",
+                    B: "The reticuloendothelial system has sequestered all abnormal RBCs.",
+                    C: "Plasma hemoglobin exceeds the binding capacity of haptoglobin and the renal threshold.",
+                    D: "Methemalbumin complexes are too large to be filtered by the kidney.",
+                    E: "Direct trauma to the kidney caused by the hemolysis."
+                },
+                correctAnswer: "C",
+                rationale: "When rapid RBC destruction occurs, free hemoglobin binds haptoglobin. Once haptoglobin is saturated, free hemoglobin circulates; if it exceeds the renal threshold, it appears in the urine.",
+                source: "Hemolytic Anemias, Slide 5: \"If HP is saturated, and the level of plasma Hgb exceeds the renal threshold, Hgb appears in the urine.\""
+            },
+            {
+                section: "Hemolytic Anemia",
+                maskedLO: "LO2: Identify the causes of hemolytic anemia and list its different classifications.",
+                fullLO: "LO2: Identify the causes of hemolytic anemia and list its different classifications. (Hemolytic Anemia)",
+                question: "A 22-year-old male is evaluated for anemia. His peripheral blood smear shows spherocytes. His father also had a history of gallstones and anemia. This patient's condition is best classified as which type of hemolytic anemia?",
+                options: {
+                    A: "Acquired, Intravascular, Extrinsic",
+                    B: "Hereditary, Extravascular, Intrinsic",
+                    C: "Acquired, Extravascular, Extrinsic",
+                    D: "Hereditary, Intravascular, Intrinsic",
+                    E: "Hereditary, Extravascular, Extrinsic"
+                },
+                correctAnswer: "B",
+                rationale: "Hereditary spherocytosis is a hereditary condition caused by an intrinsic defect in the RBC membrane (spectrin/ankyrin). The hemolysis occurs primarily in the spleen (extravascular) because the cells cannot pass through splenic fenestrations.",
+                source: "Hemolytic Anemias, Slides 8 & 11: \"Intrinsic: intra-corpuscular cause of the hemolysis e.g. ... RBC membrane/cytoskeletal disorders (spherocytosis...)\""
+            },
+            {
+                section: "Hemolytic Anemia",
+                maskedLO: "LO2: Identify the causes of hemolytic anemia and list its different classifications.",
+                fullLO: "LO2: Identify the causes of hemolytic anemia and list its different classifications. (Hemolytic Anemia)",
+                question: "A patient with a mechanical heart valve presents with fatigue. A CBC shows anemia and the peripheral smear reveals schistocytes. How is the hemolysis in this patient best classified?",
+                options: {
+                    A: "Intrinsic and Extravascular",
+                    B: "Immune-mediated and Extravascular",
+                    C: "Extrinsic and Intravascular",
+                    D: "Intrinsic and Intravascular",
+                    E: "Hereditary and Extravascular"
+                },
+                correctAnswer: "C",
+                rationale: "Mechanical shearing from a heart valve is an extrinsic (extra-corpuscular) cause of damage. The destruction occurs within the vasculature (intravascular).",
+                source: "Hemolytic Anemias, Slide 8: \"Intravascular: occurs primarily within the vasculature... e.g. Faulty heart valves...\""
+            },
+            {
+                section: "Hemolytic Anemia",
+                maskedLO: "LO3: Work up a suspected hemolytic anemia case.",
+                fullLO: "LO3: Work up a suspected hemolytic anemia case. (Hemolytic Anemia)",
+                question: "A 30-year-old female presents with fatigue and jaundice. The physician suspects hemolytic anemia. A CBC, reticulocyte count, and metabolic panel are performed. To differentiate between immune-mediated and non-immune hemolysis, which of the following is the most appropriate next test?",
+                options: {
+                    A: "Hemoglobin electrophoresis",
+                    B: "Bone marrow biopsy",
+                    C: "Direct Antiglobulin Test (DAT)",
+                    D: "Osmotic fragility test",
+                    E: "Serum ferritin"
+                },
+                correctAnswer: "C",
+                rationale: "The DAT (Direct Coombs test) detects antibodies or complement bound to RBCs, distinguishing immune causes (positive DAT) from non-immune causes (negative DAT).",
+                source: "Hemolytic Anemias, Slide 19: \"Once these are excluded, check DAT: Also known as direct coombs test. This helps differentiate between immune and non-immune hemolysis.\""
+            },
+            {
+                section: "Hemolytic Anemia",
+                maskedLO: "LO3: Work up a suspected hemolytic anemia case.",
+                fullLO: "LO3: Work up a suspected hemolytic anemia case. (Hemolytic Anemia)",
+                question: "A patient presents with signs of hemolysis. The peripheral blood smear shows \"bite cells.\" Based on this finding, which specific testing should be avoided during the acute hemolytic episode to prevent a false-negative result?",
+                options: {
+                    A: "Direct Coombs test",
+                    B: "G6PD enzyme level",
+                    C: "Osmotic fragility test",
+                    D: "Haptoglobin level",
+                    E: "Bilirubin level"
+                },
+                correctAnswer: "B",
+                rationale: "Bite cells are characteristic of G6PD deficiency. During an acute hemolytic event, reticulocytes (which have higher enzyme levels) are released, potentially normalizing the G6PD level test result falsely.",
+                source: "Hemolytic Anemias, Slide 31: \"G6PD level (NOT measured during hemolysis b/c reticulocytes have higher levels of G6PD & can falsely normalize level).\""
+            },
+            {
+                section: "Hemolytic Anemia",
+                maskedLO: "LO4: Recognize emergency hemolytic anemia diagnoses.",
+                fullLO: "LO4: Recognize emergency hemolytic anemia diagnoses. (Hemolytic Anemia)",
+                question: "A 45-year-old female presents to the emergency department with fever, confusion, and petechiae. Laboratory results show a hemoglobin of 7 g/dL, platelets of 15,000/microL, and a creatinine of 2.5 mg/dL. The peripheral smear shows numerous schistocytes. Which of the following is the most likely diagnosis?",
+                options: {
+                    A: "Autoimmune Hemolytic Anemia (AIHA)",
+                    B: "Hereditary Spherocytosis",
+                    C: "Thrombotic Thrombocytopenic Purpura (TTP)",
+                    D: "Glucose-6-Phosphate Dehydrogenase Deficiency",
+                    E: "Paroxysmal Nocturnal Hemoglobinuria"
+                },
+                correctAnswer: "C",
+                rationale: "The pentad of microangiopathic hemolytic anemia (MAHA), thrombocytopenia, fever, renal abnormalities, and neurologic findings (altered mental status) is classic for TTP, a medical emergency.",
+                source: "Hemolytic Anemias, Slide 40: \"Pentad: MAHA, thrombocytopenia, fever, renal abnormalities, and altered mental status\""
+            },
+            {
+                section: "Hemolytic Anemia",
+                maskedLO: "LO4: Recognize emergency hemolytic anemia diagnoses.",
+                fullLO: "LO4: Recognize emergency hemolytic anemia diagnoses. (Hemolytic Anemia)",
+                question: "A patient presents with signs of hemolysis. The physician notes that the patient has evidence of both thrombosis (clotting) and hemorrhage (bleeding). Fibrin degradation products (FDP) are elevated. This clinical picture is most consistent with which of the following?",
+                options: {
+                    A: "Disseminated Intravascular Coagulation (DIC)",
+                    B: "Thrombotic Thrombocytopenic Purpura (TTP)",
+                    C: "Hemolytic Uremic Syndrome (HUS)",
+                    D: "Warm Autoimmune Hemolytic Anemia",
+                    E: "Hereditary Elliptocytosis"
+                },
+                correctAnswer: "A",
+                rationale: "DIC is characterized by widespread activation of coagulation (clotting) which consumes factors and platelets, leading to bleeding. It is distinct from TTP/HUS because it involves coagulation proteins and is a secondary disorder.",
+                source: "Hemolytic Anemias, Slide 37: \"DIC is a type of microangiopathic hemolytic anemia that results in excess bleeding and clotting... It encompasses the coagulation proteins and well as platelets which distinguishes it from HUS and TTP\""
+            },
+            {
+                section: "Hemolytic Anemia",
+                maskedLO: "LO5: Discuss the treatment of select types of inherited hemolytic anemias.",
+                fullLO: "LO5: Discuss the treatment of select types of inherited hemolytic anemias. (Hemolytic Anemia)",
+                question: "A 6-year-old boy with Hereditary Spherocytosis presents with mild jaundice and anemia. His parents ask about potential curative treatments. Which of the following is considered a treatment for this condition but is generally deferred in young children to avoid sepsis risk?",
+                options: {
+                    A: "Chronic blood transfusions",
+                    B: "Splenectomy",
+                    C: "Stem cell transplant",
+                    D: "Rituximab therapy",
+                    E: "Iron chelation therapy"
+                },
+                correctAnswer: "B",
+                rationale: "Splenectomy removes the site of destruction for the spherocytes. It is often deferred in young children due to the risk of sepsis from encapsulated organisms.",
+                source: "Hemolytic Anemias, Slide 28: \"Splenectomy / Cholecystectomy may be indicated. Defer in young children, if possible.\""
+            },
+            {
+                section: "Hemolytic Anemia",
+                maskedLO: "LO5: Discuss the treatment of select types of inherited hemolytic anemias.",
+                fullLO: "LO5: Discuss the treatment of select types of inherited hemolytic anemias. (Hemolytic Anemia)",
+                question: "A patient with known G6PD deficiency presents with acute hemolysis after being treated for a urinary tract infection. In addition to transfusion if severe, what is the primary management strategy for this patient?",
+                options: {
+                    A: "Splenectomy",
+                    B: "Prednisone",
+                    C: "Plasma exchange",
+                    D: "Avoidance of oxidant drugs/foods and hydration",
+                    E: "IVIG"
+                },
+                correctAnswer: "D",
+                rationale: "Management of G6PD deficiency is primarily supportive, involving the avoidance of precipitants (oxidant drugs, fava beans) and hydration to protect the kidneys.",
+                source: "Hemolytic Anemias, Slide 32: \"Management supportive... Avoidance of exposures to oxidant drugs or foods. Hydration to avoid nephrotoxic effects of hemoglobinuria.\""
+            },
+            {
+                section: "Hemolytic Anemia",
+                maskedLO: "LO6: Discuss the treatment of select types of acquired hemolytic anemias.",
+                fullLO: "LO6: Discuss the treatment of select types of acquired hemolytic anemias. (Hemolytic Anemia)",
+                question: "A 50-year-old woman is diagnosed with Warm Autoimmune Hemolytic Anemia (Warm AIHA). Her direct Coombs test is positive for IgG. What is the first-line pharmacologic treatment to decrease antibody production in this patient?",
+                options: {
+                    A: "Rituximab",
+                    B: "Prednisone",
+                    C: "IVIG",
+                    D: "Cyclosporine",
+                    E: "Plasma Exchange"
+                },
+                correctAnswer: "B",
+                rationale: "Corticosteroids (prednisone) are the first-line treatment for Warm AIHA to decrease antibody production.",
+                source: "Hemolytic Anemias, Slide 39: \"Rx aims at ↓ antibodies production: • Prednisone 1mg/kg...\""
+            },
+            {
+                section: "Hemolytic Anemia",
+                maskedLO: "LO6: Discuss the treatment of select types of acquired hemolytic anemias.",
+                fullLO: "LO6: Discuss the treatment of select types of acquired hemolytic anemias. (Hemolytic Anemia)",
+                question: "A patient is diagnosed with Thrombotic Thrombocytopenic Purpura (TTP). Which of the following interventions is the initial therapy of choice and is critical for survival?",
+                options: {
+                    A: "Platelet transfusion",
+                    B: "Plasma exchange",
+                    C: "High-dose aspirin",
+                    D: "Broad-spectrum antibiotics",
+                    E: "Splenectomy"
+                },
+                correctAnswer: "B",
+                rationale: "Plasma exchange removes the antibody against ADAMTS13 and replenishes the enzyme. It has reduced mortality from >95% to <20%. Platelets are contraindicated.",
+                source: "Hemostasis, Thrombosis, and Bleeding Disorders, Slide 41: \"Plasma Exchange: initial therapy of choice... Generally fatal disease prior to use of plasma exchange (> 95% mortality)\""
+            },
+            {
+                section: "Hemolytic Anemia",
+                maskedLO: "LO7: Distinguish the different types of hemolytic transfusion reactions.",
+                fullLO: "LO7: Distinguish the different types of hemolytic transfusion reactions. (Hemolytic Anemia)",
+                question: "A patient receiving a blood transfusion develops fever, flank pain, and dark urine within minutes of the infusion starting. This \"Acute Hemolytic Transfusion Reaction\" is best classified under which category of hemolytic anemia?",
+                options: {
+                    A: "Chronic, Extravascular",
+                    B: "Acute, Intravascular",
+                    C: "Hereditary, Intrinsic",
+                    D: "Chronic, Immune-mediated",
+                    E: "Acute, Extravascular"
+                },
+                correctAnswer: "B",
+                rationale: "Acute hemolytic transfusion reactions are classified as acute and typically involve intravascular hemolysis due to ABO incompatibility.",
+                source: "Hemolytic Anemias, Slide 9: \"Acute: Rapid drop in Hgb, patients are more symptomatic e.g. ... Acute hemolytic transfusion reaction\""
+            },
+            {
+                section: "Hemolytic Anemia",
+                maskedLO: "LO7: Distinguish the different types of hemolytic transfusion reactions.",
+                fullLO: "LO7: Distinguish the different types of hemolytic transfusion reactions. (Hemolytic Anemia)",
+                question: "While monitoring a patient for hemolysis, the physician notes that acute hemolytic transfusion reactions are classified as acute causes, whereas hereditary spherocytosis is classified as chronic. Which of the following best characterizes the clinical presentation difference between these two categories?",
+                options: {
+                    A: "Chronic cases present with rapid drops in hemoglobin and shock.",
+                    B: "Acute cases present with gradual drops in hemoglobin and are less symptomatic.",
+                    C: "Acute cases present with rapid drops in hemoglobin and patients are more symptomatic.",
+                    D: "There is no clinical difference in presentation.",
+                    E: "Chronic cases are always fatal without immediate intervention."
+                },
+                correctAnswer: "C",
+                rationale: "Acute hemolytic anemias (like transfusion reactions) cause rapid hemoglobin drops and severe symptoms. Chronic cases (like HS) usually have gradual drops and patients are less symptomatic.",
+                source: "Hemolytic Anemias, Slide 9: \"Acute: Rapid drop in Hgb, patients are more symptomatic... Chronic: Gradual and sustained drop in Hgb, patients are less symptomatic\""
+            },
+
+            // --- Hemostasis, Thrombosis, and Bleeding Disorders ---
+            {
+                section: "Hemostasis, Thrombosis, and Bleeding Disorders",
+                maskedLO: "LO1: Be able to describe primary hemostasis in terms of key components and events to include von Willebrand factor (vWf), platelets, and fibrinogen.",
+                fullLO: "LO1: Be able to describe primary hemostasis in terms of key components and events to include von Willebrand factor (vWf), platelets, and fibrinogen. (Hemostasis, Thrombosis, and Bleeding Disorders)",
+                question: "During the process of primary hemostasis, platelets adhere to the subendothelium at the site of injury. Which specific interaction facilitates this initial adhesion?",
+                options: {
+                    A: "GpIIb/IIIa binding to Fibrinogen",
+                    B: "GpIb binding to von Willebrand factor (vWf)",
+                    C: "P2Y12 binding to ADP",
+                    D: "Tissue Factor binding to Factor VII",
+                    E: "Phospholipids binding to Calcium"
+                },
+                correctAnswer: "B",
+                rationale: "The initial adhesion of platelets to the exposed subendothelium is mediated by the binding of the platelet surface receptor GpIb to von Willebrand factor (vWf).",
+                source: "Hemostasis, Thrombosis, and Bleeding Disorders, Slide 7: \"Adheres platelets to subendothelium ­Via GpIb\""
+            },
+            {
+                section: "Hemostasis, Thrombosis, and Bleeding Disorders",
+                maskedLO: "LO1: Be able to describe primary hemostasis in terms of key components and events to include von Willebrand factor (vWf), platelets, and fibrinogen.",
+                fullLO: "LO1: Be able to describe primary hemostasis in terms of key components and events to include von Willebrand factor (vWf), platelets, and fibrinogen. (Hemostasis, Thrombosis, and Bleeding Disorders)",
+                question: "After platelet adhesion and activation, aggregation occurs to form the platelet plug. Which molecule serves as the bridge crosslinking platelets via the GpIIb/IIIa receptor?",
+                options: {
+                    A: "von Willebrand Factor",
+                    B: "Collagen",
+                    C: "Thrombin",
+                    D: "Fibrinogen",
+                    E: "Plasmin"
+                },
+                correctAnswer: "D",
+                rationale: "Fibrinogen binds to GpIIb/IIIa receptors on activated platelets, linking them together (aggregation).",
+                source: "Hemostasis, Thrombosis, and Bleeding Disorders, Slide 9: \"Finally, GpIIb/IIIa gets expressed and crosslinks with other platelets via fibrinogen\""
+            },
+            {
+                section: "Hemostasis, Thrombosis, and Bleeding Disorders",
+                maskedLO: "LO2: Understand testing to evaluate primary hemostasis including platelet count, MPV, bleeding time, PFA, and platelet aggregation studies.",
+                fullLO: "LO2: Understand testing to evaluate primary hemostasis including platelet count, MPV, bleeding time, PFA, and platelet aggregation studies. (Hemostasis, Thrombosis, and Bleeding Disorders)",
+                question: "A patient is undergoing evaluation for a bleeding disorder. The physician orders a Platelet Function Analyzer (PFA) test. This test is designed to evaluate which aspect of hemostasis?",
+                options: {
+                    A: "The extrinsic coagulation pathway",
+                    B: "The intrinsic coagulation pathway",
+                    C: "Primary hemostasis",
+                    D: "Fibrinolysis",
+                    E: "Factor XIII activity"
+                },
+                correctAnswer: "C",
+                rationale: "The PFA (and the older bleeding time test) evaluates primary hemostasis, which involves platelet plug formation.",
+                source: "Hemostasis, Thrombosis, and Bleeding Disorders, Slide 11: \"PFA: more standardized bleeding time... time it takes from beginning to bleed stopping represents primary hemostasis time\""
+            },
+            {
+                section: "Hemostasis, Thrombosis, and Bleeding Disorders",
+                maskedLO: "LO2: Understand testing to evaluate primary hemostasis including platelet count, MPV, bleeding time, PFA, and platelet aggregation studies.",
+                fullLO: "LO2: Understand testing to evaluate primary hemostasis including platelet count, MPV, bleeding time, PFA, and platelet aggregation studies. (Hemostasis, Thrombosis, and Bleeding Disorders)",
+                question: "A lab technician performs a platelet aggregation study using ristocetin. Ristocetin induces platelet aggregation by facilitating the interaction between which two components?",
+                options: {
+                    A: "GpIIb/IIIa and Fibrinogen",
+                    B: "GpIb and von Willebrand Factor",
+                    C: "ADP and P2Y12",
+                    D: "Thromboxane and COX-1",
+                    E: "Factor VIII and Factor IX"
+                },
+                correctAnswer: "B",
+                rationale: "Ristocetin assists with adhesion by promoting the binding of vWf to GpIb. It is used to test for vWD and Bernard-Soulier syndrome.",
+                source: "Hemostasis, Thrombosis, and Bleeding Disorders, Slide 12: \"including ristocetin (assists with adhesion)...\""
+            },
+            {
+                section: "Hemostasis, Thrombosis, and Bleeding Disorders",
+                maskedLO: "LO3: Understand disorders of primary hemostasis... including thrombocytopenia, Glanzmann thrombasthenia, Bernard-Soulier syndrome, and von Willebrand disease.",
+                fullLO: "LO3: Understand disorders of primary hemostasis... including thrombocytopenia, Glanzmann thrombasthenia, Bernard-Soulier syndrome, and von Willebrand disease. (Hemostasis, Thrombosis, and Bleeding Disorders)",
+                question: "A 5-year-old boy presents with epistaxis and easy bruising. Genetic testing reveals a defect in the GpIb receptor. A peripheral blood smear shows thrombocytopenia and giant platelets. Which of the following is the most likely diagnosis?",
+                options: {
+                    A: "Glanzmann Thrombasthenia",
+                    B: "Bernard-Soulier Syndrome",
+                    C: "von Willebrand Disease",
+                    D: "Immune Thrombocytopenic Purpura (ITP)",
+                    E: "Gray Platelet Syndrome"
+                },
+                correctAnswer: "B",
+                rationale: "Bernard-Soulier syndrome is an autosomal recessive disorder caused by a defect/lack of GpIb. It is characterized by large platelets and thrombocytopenia.",
+                source: "Hemostasis, Thrombosis, and Bleeding Disorders, Slide 17: \"Bernard-Soulier Syndrome... Defect/lack of GpIb... Large platelets with thrombocytopenia\""
+            },
+            {
+                section: "Hemostasis, Thrombosis, and Bleeding Disorders",
+                maskedLO: "LO3: Understand disorders of primary hemostasis... including thrombocytopenia, Glanzmann thrombasthenia, Bernard-Soulier syndrome, and von Willebrand disease.",
+                fullLO: "LO3: Understand disorders of primary hemostasis... including thrombocytopenia, Glanzmann thrombasthenia, Bernard-Soulier syndrome, and von Willebrand disease. (Hemostasis, Thrombosis, and Bleeding Disorders)",
+                question: "A 24-year-old female presents with menorrhagia and gum bleeding. Lab work reveals a normal platelet count but a prolonged PTT. Further testing shows low levels of Factor VIII. Ristocetin cofactor activity is decreased. What is the most likely diagnosis?",
+                options: {
+                    A: "Hemophilia A",
+                    B: "Hemophilia B",
+                    C: "von Willebrand Disease",
+                    D: "Vitamin K deficiency",
+                    E: "Glanzmann Thrombasthenia"
+                },
+                correctAnswer: "C",
+                rationale: "vWD is the most common inherited bleeding disorder. vWf stabilizes Factor VIII; therefore, severe vWD can lead to low Factor VIII and a prolonged PTT. Ristocetin activity tests vWf function.",
+                source: "Hemostasis, Thrombosis, and Bleeding Disorders, Slide 33: \"Mostly affects primary hemostasis... but can also affect secondary hemostasis as factor VIII can’t survive without it\""
+            },
+            {
+                section: "Hemostasis, Thrombosis, and Bleeding Disorders",
+                maskedLO: "LO4: Be able to describe secondary hemostasis in terms of key components and events to include coagulation proteins including vitamin K dependent proteins.",
+                fullLO: "LO4: Be able to describe secondary hemostasis in terms of key components and events to include coagulation proteins including vitamin K dependent proteins. (Hemostasis, Thrombosis, and Bleeding Disorders)",
+                question: "A patient on long-term antibiotic therapy develops bleeding issues. Lab results suggest a Vitamin K deficiency. Which of the following coagulation factors requires Vitamin K for synthesis?",
+                options: {
+                    A: "Factors I, II, V, VIII",
+                    B: "Factors II, VII, IX, X",
+                    C: "Factors XI, XII, XIII",
+                    D: "Factors V, VIII, XIII",
+                    E: "Proteins C and S only"
+                },
+                correctAnswer: "B",
+                rationale: "Vitamin K is required for the synthesis of Factors II, VII, IX, and X, as well as Protein C and Protein S.",
+                source: "Hemostasis, Thrombosis, and Bleeding Disorders, Slide 20: \"Some are vitamin K dependent: II, VII, IX, X (C and S also K dependent*)\""
+            },
+            {
+                section: "Hemostasis, Thrombosis, and Bleeding Disorders",
+                maskedLO: "LO4: Be able to describe secondary hemostasis in terms of key components and events to include coagulation proteins including vitamin K dependent proteins.",
+                fullLO: "LO4: Be able to describe secondary hemostasis in terms of key components and events to include coagulation proteins including vitamin K dependent proteins. (Hemostasis, Thrombosis, and Bleeding Disorders)",
+                question: "Which coagulation factor acts as a transglutaminase to crosslink fibrin monomers, thereby strengthening the clot, and has the longest half-life of the coagulation proteins?",
+                options: {
+                    A: "Factor I (Fibrinogen)",
+                    B: "Factor II (Thrombin)",
+                    C: "Factor VIII",
+                    D: "Factor XIII",
+                    E: "Factor X"
+                },
+                correctAnswer: "D",
+                rationale: "Factor XIII crosslinks fibrin monomers to stabilize the clot and has the longest half-life.",
+                source: "Hemostasis, Thrombosis, and Bleeding Disorders, Slide 23: \"Factor XIII crosslinks fibrin monomers, strengthening clot... Long life\""
+            },
+            {
+                section: "Hemostasis, Thrombosis, and Bleeding Disorders",
+                maskedLO: "LO5: Understand testing to evaluate secondary hemostasis including PT, aPTT, INR, mixing studies, factor assays, 5M urea, and inhibitor titers.",
+                fullLO: "LO5: Understand testing to evaluate secondary hemostasis including PT, aPTT, INR, mixing studies, factor assays, 5M urea, and inhibitor titers. (Hemostasis, Thrombosis, and Bleeding Disorders)",
+                question: "A patient has a prolonged aPTT. A mixing study is performed where the patient's plasma is mixed 1:1 with normal plasma. The aPTT does not correct to normal. What is the most likely interpretation of this result?",
+                options: {
+                    A: "Factor VIII deficiency",
+                    B: "Factor IX deficiency",
+                    C: "Presence of an inhibitor (e.g., lupus anticoagulant)",
+                    D: "von Willebrand Disease",
+                    E: "Vitamin K deficiency"
+                },
+                correctAnswer: "C",
+                rationale: "If a mixing study corrects, it indicates a factor deficiency (the normal plasma supplied the missing factor). If it does not correct, it indicates the presence of an inhibitor (antibody) that is inhibiting the reagent in the normal plasma as well.",
+                source: "Hemostasis, Thrombosis, and Bleeding Disorders, Slide 27: \"if the PT/PTT corrects, a deficiency is diagnosed; if it does not, an inhibitor is diagnosed\""
+            },
+            {
+                section: "Hemostasis, Thrombosis, and Bleeding Disorders",
+                maskedLO: "LO5: Understand testing to evaluate secondary hemostasis including PT, aPTT, INR, mixing studies, factor assays, 5M urea, and inhibitor titers.",
+                fullLO: "LO5: Understand testing to evaluate secondary hemostasis including PT, aPTT, INR, mixing studies, factor assays, 5M urea, and inhibitor titers. (Hemostasis, Thrombosis, and Bleeding Disorders)",
+                question: "A patient on warfarin therapy is having their anticoagulation status monitored. Which laboratory value is standardized across different laboratories to account for variability in thromboplastin reagents?",
+                options: {
+                    A: "Prothrombin Time (PT)",
+                    B: "Activated Partial Thromboplastin Time (aPTT)",
+                    C: "International Normalized Ratio (INR)",
+                    D: "Thrombin Time (TT)",
+                    E: "Bleeding Time"
+                },
+                correctAnswer: "C",
+                rationale: "The INR standardizes the PT result to account for variability in thromboplastin reagents used by different labs, making it the standard for monitoring warfarin.",
+                source: "Hemostasis, Thrombosis, and Bleeding Disorders, Slide 25: \"INR (international normalized ratio): standardizes PT among all labs... very useful in monitoring warfarin therapy\""
+            },
+            {
+                section: "Hemostasis, Thrombosis, and Bleeding Disorders",
+                maskedLO: "LO6: Understand disorders of secondary hemostasis... including hemophilia A, hemophilia B, other factor deficiencies, and acquired factor inhibitors.",
+                fullLO: "LO6: Understand disorders of secondary hemostasis... including hemophilia A, hemophilia B, other factor deficiencies, and acquired factor inhibitors. (Hemostasis, Thrombosis, and Bleeding Disorders)",
+                question: "A young boy presents with hemarthrosis (bleeding into the joint) after a minor fall. Lab results show a prolonged aPTT and a normal PT. Factor VIII assay reveals levels <1%. What is the diagnosis?",
+                options: {
+                    A: "Hemophilia A",
+                    B: "Hemophilia B",
+                    C: "von Willebrand Disease",
+                    D: "Vitamin K deficiency",
+                    E: "Factor XI deficiency"
+                },
+                correctAnswer: "A",
+                rationale: "Hemophilia A is a Factor VIII deficiency. Severe disease (<1%) often presents with hemarthrosis. It causes a prolonged PTT but normal PT.",
+                source: "Hemostasis, Thrombosis, and Bleeding Disorders, Slide 29: \"Hemophilia A... Most common inherited factor deficiency... factor VIII... Prolonged PTT, normal PT... <1%: severe\""
+            },
+            {
+                section: "Hemostasis, Thrombosis, and Bleeding Disorders",
+                maskedLO: "LO6: Understand disorders of secondary hemostasis... including hemophilia A, hemophilia B, other factor deficiencies, and acquired factor inhibitors.",
+                fullLO: "LO6: Understand disorders of secondary hemostasis... including hemophilia A, hemophilia B, other factor deficiencies, and acquired factor inhibitors. (Hemostasis, Thrombosis, and Bleeding Disorders)",
+                question: "A patient with Hemophilia A receives Factor VIII replacement but fails to show the expected rise in factor levels. A mixing study fails to correct. This suggests the patient has developed:",
+                options: {
+                    A: "Tolerance",
+                    B: "An inhibitor (antibody against Factor VIII)",
+                    C: "Disseminated Intravascular Coagulation (DIC)",
+                    D: "Liver failure",
+                    E: "Factor IX deficiency"
+                },
+                correctAnswer: "B",
+                rationale: "About 15% of Hemophilia A patients develop inhibitors (alloantibodies) against Factor VIII, rendering replacement less effective and causing mixing studies not to correct.",
+                source: "Hemostasis, Thrombosis, and Bleeding Disorders, Slide 29: \"15% of patients will develop an inhibitor to factor VIII; then PTT will not correct\""
+            },
+            {
+                section: "Hemostasis, Thrombosis, and Bleeding Disorders",
+                maskedLO: "LO7: Be able to list the differential diagnosis of microangiopathic hemolytic anemias...",
+                fullLO: "LO7: Be able to list the differential diagnosis of microangiopathic hemolytic anemias... (Hemostasis, Thrombosis, and Bleeding Disorders)",
+                question: "A child presents with bloody diarrhea followed by acute kidney injury. A peripheral smear shows schistocytes and thrombocytopenia. The most likely cause is a toxin produced by:",
+                options: {
+                    A: "Staphylococcus aureus",
+                    B: "Streptococcus pneumoniae",
+                    C: "Escherichia coli O157:H7",
+                    D: "Neisseria meningitidis",
+                    E: "Pseudomonas aeruginosa"
+                },
+                correctAnswer: "C",
+                rationale: "Hemolytic Uremic Syndrome (HUS) is typically seen in children with bloody diarrhea caused by Shiga toxin-producing E. coli (O157:H7). It causes MAHA, thrombocytopenia, and renal failure.",
+                source: "Hemostasis, Thrombosis, and Bleeding Disorders, Slide 42: \"Specific toxins cause HUS with most common being Escherichia coli O157:H7\""
+            },
+            {
+                section: "Hemostasis, Thrombosis, and Bleeding Disorders",
+                maskedLO: "LO7: Be able to list the differential diagnosis of microangiopathic hemolytic anemias...",
+                fullLO: "LO7: Be able to list the differential diagnosis of microangiopathic hemolytic anemias... (Hemostasis, Thrombosis, and Bleeding Disorders)",
+                question: "A hospitalized patient with sepsis begins bleeding from IV sites. Labs show prolonged PT and PTT, low fibrinogen, thrombocytopenia, and elevated D-dimer. What is the underlying pathology?",
+                options: {
+                    A: "Immune destruction of platelets",
+                    B: "Widespread activation of coagulation consuming factors and platelets",
+                    C: "Autoantibody against ADAMTS13",
+                    D: "Toxin-mediated endothelial damage",
+                    E: "Vitamin K deficiency"
+                },
+                correctAnswer: "B",
+                rationale: "This describes Disseminated Intravascular Coagulation (DIC). It is a consumptive coagulopathy where widespread clotting uses up factors (prolonged PT/PTT) and platelets, leading to bleeding.",
+                source: "Hemostasis, Thrombosis, and Bleeding Disorders, Slide 37: \"Something triggers the coagulation cascade inappropriately... Unnecessary fibrin is made... coagulation proteins and platelets are used up\""
+            },
+            {
+                section: "Hemostasis, Thrombosis, and Bleeding Disorders",
+                maskedLO: "LO8: Describe the common causes of congenital and acquired thrombophilia...",
+                fullLO: "LO8: Describe the common causes of congenital and acquired thrombophilia... (Hemostasis, Thrombosis, and Bleeding Disorders)",
+                question: "A 30-year-old female presents with a deep vein thrombosis (DVT). She has no obvious risk factors. Genetic testing reveals a mutation in Factor V that makes it resistant to inactivation by Protein C. This condition is:",
+                options: {
+                    A: "Antithrombin deficiency",
+                    B: "Prothrombin gene mutation",
+                    C: "Factor V Leiden",
+                    D: "Protein S deficiency",
+                    E: "Antiphospholipid syndrome"
+                },
+                correctAnswer: "C",
+                rationale: "Factor V Leiden is the most common hereditary thrombophilia. It involves a point mutation (Arg506Gln) that makes Factor V resistant to cleavage (inactivation) by activated Protein C.",
+                source: "Hemostasis, Thrombosis, and Bleeding Disorders, Slide 49: \"Point mutation in factor V causing it to resist inactivation by protein C... In FVL... prevents cleavage\""
+            },
+            {
+                section: "Hemostasis, Thrombosis, and Bleeding Disorders",
+                maskedLO: "LO8: Describe the common causes of congenital and acquired thrombophilia...",
+                fullLO: "LO8: Describe the common causes of congenital and acquired thrombophilia... (Hemostasis, Thrombosis, and Bleeding Disorders)",
+                question: "A patient is diagnosed with Antiphospholipid Antibody Syndrome (APS) after recurrent miscarriages and a DVT. Unexpectedly, her aPTT is prolonged. Why is the aPTT prolonged in this \"clotting\" disorder?",
+                options: {
+                    A: "The patient has a concurrent Factor VIII deficiency",
+                    B: "The antibody consumes all the Factor XII",
+                    C: "The antibody reacts against the phospholipid reagent in the aPTT test",
+                    D: "The patient has liver failure",
+                    E: "The patient is secretly taking heparin"
+                },
+                correctAnswer: "C",
+                rationale: "In APS, the \"lupus anticoagulant\" antibody binds to the phospholipids used in the aPTT assay, interfering with the in vitro test and prolonging the time, despite the patient being hypercoagulable in vivo.",
+                source: "Hemostasis, Thrombosis, and Bleeding Disorders, Slide 53: \"the antibody reacts against the aPTT reagent using it all up and causing the aPTT to be prolonged\""
+            },
+
+            // --- Anticoagulant Therapy ---
+            {
+                section: "Anticoagulant Therapy",
+                maskedLO: "Discuss the mechanisms of action... Memorize clinical uses... Know major side effects",
+                fullLO: "Discuss the mechanisms of action... Memorize clinical uses... Know major side effects (Anticoagulant Therapy)",
+                question: "A 65-year-old male with atrial fibrillation is prescribed Warfarin. What is the primary mechanism of action of this drug?",
+                options: {
+                    A: "Direct inhibition of Thrombin",
+                    B: "Potentiation of Antithrombin III",
+                    C: "Inhibition of Vitamin K epoxide reductase",
+                    D: "Inhibition of COX-1",
+                    E: "Blocking ADP receptors"
+                },
+                correctAnswer: "C",
+                rationale: "Warfarin inhibits the enzyme epoxide reductase, preventing the regeneration of reduced Vitamin K, which is necessary for the carboxylation of factors II, VII, IX, and X.",
+                source: "Anticoagulants & Thrombolytics, Slide 10: \"Vitamin K antagonist... Warfarin-----X Epoxide reductase\""
+            },
+            {
+                section: "Anticoagulant Therapy",
+                maskedLO: "Discuss the mechanisms of action... Memorize clinical uses... Know major side effects",
+                fullLO: "Discuss the mechanisms of action... Memorize clinical uses... Know major side effects (Anticoagulant Therapy)",
+                question: "A pregnant patient requires anticoagulation for a deep vein thrombosis. Which anticoagulant is preferred because it does not cross the placenta?",
+                options: {
+                    A: "Warfarin",
+                    B: "Heparin",
+                    C: "Aspirin",
+                    D: "Clopidogrel",
+                    E: "Tissue Plasminogen Activator"
+                },
+                correctAnswer: "B",
+                rationale: "Heparin is a large, charged molecule that does not cross the placenta, making it safe for use during pregnancy. Warfarin is teratogenic.",
+                source: "Anticoagulants & Thrombolytics, Slide 14: \"Does not cross the placenta, safe for use during pregnancy\""
+            },
+            {
+                section: "Anticoagulant Therapy",
+                maskedLO: "Discuss the mechanisms of action... Memorize clinical uses... Know major side effects",
+                fullLO: "Discuss the mechanisms of action... Memorize clinical uses... Know major side effects (Anticoagulant Therapy)",
+                question: "A patient undergoing percutaneous coronary intervention (angioplasty) is administered Abciximab. This drug functions by inhibiting which platelet receptor?",
+                options: {
+                    A: "P2Y12",
+                    B: "Thromboxane receptor",
+                    C: "Glycoprotein IIb/IIIa",
+                    D: "Glycoprotein Ib",
+                    E: "Adenosine receptor"
+                },
+                correctAnswer: "C",
+                rationale: "Abciximab is a monoclonal antibody that inhibits the Glycoprotein IIb/IIIa receptor, preventing platelet aggregation.",
+                source: "Anticoagulants & Thrombolytics, Slide 9: \"Abciximab (REOPRO), monoclonal antibody... against the glycoprotein IIb/IIIa receptor.\""
+            },
+            {
+                section: "Anticoagulant Therapy",
+                maskedLO: "Discuss the mechanisms of action... Memorize clinical uses... Know major side effects",
+                fullLO: "Discuss the mechanisms of action... Memorize clinical uses... Know major side effects (Anticoagulant Therapy)",
+                question: "A patient presenting with an acute ischemic stroke is considered for thrombolytic therapy with Alteplase (tPA). What is the biochemical mechanism by which tPA dissolves clots?",
+                options: {
+                    A: "It inhibits factor Xa",
+                    B: "It binds to antithrombin to inhibit thrombin",
+                    C: "It converts plasminogen to plasmin",
+                    D: "It blocks platelet ADP receptors",
+                    E: "It inhibits fibrin crosslinking by Factor XIII"
+                },
+                correctAnswer: "C",
+                rationale: "tPA acts as a plasminogen activator, converting plasminogen into plasmin. Plasmin then degrades the fibrin mesh of the clot.",
+                source: "Anticoagulants & Thrombolytics, Slide 6: \"Tissue-type plasminogen activator... produces a clot selective activation of plasminogen\""
+            },
+            {
+                section: "Anticoagulant Therapy",
+                maskedLO: "Discuss the mechanisms of action... Memorize clinical uses... Know major side effects",
+                fullLO: "Discuss the mechanisms of action... Memorize clinical uses... Know major side effects (Anticoagulant Therapy)",
+                question: "A patient is taking Clopidogrel to prevent recurrent stroke. Which of the following best describes the molecular target of this drug?",
+                options: {
+                    A: "Cyclooxygenase (COX) enzyme",
+                    B: "ADP receptor (P2Y12)",
+                    C: "Vitamin K epoxide reductase",
+                    D: "Phosphodiesterase",
+                    E: "Thrombin"
+                },
+                correctAnswer: "B",
+                rationale: "Clopidogrel (and Ticlopidine) inhibits platelet function by blocking the binding of ADP to its P2Y12 receptor.",
+                source: "Anticoagulants & Thrombolytics, Slide 6: \"Clopidogrel... Inhibit platelet function by inhibiting the binding of ADP to its receptor P2Y12.\""
+            },
+            {
+                section: "Anticoagulant Therapy",
+                maskedLO: "Discuss the mechanisms of action... Memorize clinical uses... Know major side effects",
+                fullLO: "Discuss the mechanisms of action... Memorize clinical uses... Know major side effects (Anticoagulant Therapy)",
+                question: "A patient receiving Heparin develops severe bleeding. Which agent should be administered to reverse the effects of Heparin?",
+                options: {
+                    A: "Vitamin K",
+                    B: "Fresh Frozen Plasma",
+                    C: "Protamine Sulfate",
+                    D: "Aminocaproic acid",
+                    E: "Idarucizumab"
+                },
+                correctAnswer: "C",
+                rationale: "Protamine sulfate is a positively charged protein that binds to the negatively charged heparin, neutralizing its anticoagulant effect.",
+                source: "Anticoagulants & Thrombolytics, Slide 14: \"Inhibition of heparin effect PROTAMINE SULFATE\""
+            },
+            {
+                section: "Anticoagulant Therapy",
+                maskedLO: "Discuss the mechanisms of action... Memorize clinical uses... Know major side effects",
+                fullLO: "Discuss the mechanisms of action... Memorize clinical uses... Know major side effects (Anticoagulant Therapy)",
+                question: "A patient develops Heparin-Induced Thrombocytopenia (HIT). Heparin is stopped. Which anticoagulant is recommended as an alternative for anticoagulation in this patient?",
+                options: {
+                    A: "Warfarin (started immediately alone)",
+                    B: "Enoxaparin (LMWH)",
+                    C: "Argatroban",
+                    D: "Abciximab",
+                    E: "Aspirin"
+                },
+                correctAnswer: "C",
+                rationale: "Argatroban is a direct thrombin inhibitor used as an alternative to heparin in patients with HIT or at risk for HIT.",
+                source: "Anticoagulants & Thrombolytics, Slide 5: \"Argatroban... Alternative to lepirudin [for HIT]... prophylaxis or treatment of patients with a risk of developing heparin-induced thrombocytopenia.\""
+            }
+        ];
+
+        // --- Core Logic ---
+        const quizRoot = document.getElementById('quiz-root');
+        const themeSelect = document.getElementById('theme-select');
+        const pinBtn = document.getElementById('pin-btn');
+        const mainHeader = document.getElementById('main-header');
+
+        function initQuiz() {
+            // Render Questions
+            let currentSection = "";
+            
+            quizData.forEach((item, index) => {
+                // Insert Section Header if needed
+                if (item.section !== currentSection) {
+                    currentSection = item.section;
+                    const sectionHeader = document.createElement('h2');
+                    sectionHeader.className = 'section-header';
+                    sectionHeader.textContent = currentSection;
+                    quizRoot.appendChild(sectionHeader);
+                }
+
+                // Create Card
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `q-card-${index}`;
+
+                // Learning Objective (Masked)
+                const loBox = document.createElement('div');
+                loBox.className = 'lo-box';
+                loBox.id = `lo-${index}`;
+                loBox.textContent = item.maskedLO;
+                card.appendChild(loBox);
+
+                // Question Text
+                const qText = document.createElement('div');
+                qText.className = 'question-text';
+                qText.textContent = `${index + 1}. ${item.question}`;
+                card.appendChild(qText);
+
+                // Options Container
+                const optionsGrid = document.createElement('div');
+                optionsGrid.className = 'options-grid';
+
+                for (const [key, value] of Object.entries(item.options)) {
+                    const label = document.createElement('label');
+                    label.className = 'option-label';
+                    
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = `question-${index}`;
+                    input.value = key;
+
+                    const span = document.createElement('span');
+                    // Retain letters: A. Option Text
+                    span.textContent = `${key}. ${value}`;
+
+                    label.appendChild(input);
+                    label.appendChild(span);
+                    optionsGrid.appendChild(label);
+                }
+                card.appendChild(optionsGrid);
+
+                // Check Button
+                const btn = document.createElement('button');
+                btn.className = 'btn-check';
+                btn.textContent = 'Check Answer';
+                btn.onclick = () => checkAnswer(index);
+                card.appendChild(btn);
+
+                // Feedback Container
+                const feedback = document.createElement('div');
+                feedback.className = 'feedback';
+                feedback.id = `feedback-${index}`;
+                card.appendChild(feedback);
+
+                quizRoot.appendChild(card);
+            });
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('quizTheme') || 'dark';
+            changeTheme(savedTheme);
+            themeSelect.value = savedTheme;
+
+            // Load saved pin state
+            const savedPinState = localStorage.getItem('headerPinned');
+            // Default to true (pinned) if not set or if set to true
+            if (savedPinState === 'false') {
+                toggleHeader(false); 
+            } else {
+                toggleHeader(true);
+            }
+        }
+
+        function checkAnswer(index) {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            const feedbackEl = document.getElementById(`feedback-${index}`);
+            const loEl = document.getElementById(`lo-${index}`);
+            const data = quizData[index];
+
+            if (!selected) {
+                alert("Please select an answer.");
+                return;
+            }
+
+            // Reveal LO
+            loEl.textContent = data.fullLO;
+
+            // Generate Feedback HTML
+            const isCorrect = selected.value === data.correctAnswer;
+            
+            let html = `<span class="feedback-header">${isCorrect ? "Correct!" : "Incorrect"}</span>`;
+            if (!isCorrect) {
+                html += `<div>The correct answer is <strong>${data.correctAnswer}</strong>.</div>`;
+            }
+            
+            html += `<div class="rationale"><strong>Rationale:</strong> ${data.rationale}</div>`;
+            html += `<div class="source"><strong>Source:</strong> ${data.source}</div>`;
+
+            feedbackEl.innerHTML = html;
+            feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedbackEl.style.display = 'block';
+        }
+
+        function changeTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+            localStorage.setItem('quizTheme', themeName);
+        }
+
+        function toggleHeader(forceState) {
+            // Determine current state based on class presence
+            const isCurrentlyPinned = !mainHeader.classList.contains('unpinned');
+            
+            // If forceState is provided (boolean), use it. Otherwise toggle current state.
+            const newState = (typeof forceState === 'boolean') ? forceState : !isCurrentlyPinned;
+
+            if (newState) {
+                // Pin
+                mainHeader.classList.remove('unpinned');
+                pinBtn.classList.add('pin-active');
+                localStorage.setItem('headerPinned', 'true');
+            } else {
+                // Unpin
+                mainHeader.classList.add('unpinned');
+                pinBtn.classList.remove('pin-active');
+                localStorage.setItem('headerPinned', 'false');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', initQuiz);
+
+    </script>
+</body>
+</html>
